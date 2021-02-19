@@ -10,6 +10,7 @@ const useLogin = ({identifier, password}) => {
   const history = useHistory();
 
   const onSubmit = async () => {
+     
     const { data } = await login({
       input: {
         identifier,
@@ -17,10 +18,14 @@ const useLogin = ({identifier, password}) => {
       },
     });
 
+   
+
     if (data) {
       const token = get(data,'login.jwt','')
+      
       setToken(token)
-      history.push("/app/dashboard");
+     // history.push("/app/dashboard");
+      history.push("/");
     }
   };
 

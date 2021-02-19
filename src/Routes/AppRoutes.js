@@ -10,7 +10,7 @@ const AppRoutes = () => {
   <div>
     <Switch>
       <Route exact path="/" component={Home} />
-      <Route exact path="/app/dashboard" component={Home} />
+     { /* <Route exact path="/app/dashboard" component={Home} /> */}
     </Switch>
   </div>
 )};

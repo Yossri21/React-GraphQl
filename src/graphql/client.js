@@ -3,10 +3,9 @@ import { getToken } from 'utils/tokens';
 
 const client = createClient({
   url: 'https://cms.trial-task.k8s.ext.fcse.io/graphql',
-  fetchOptions: (a) => {
-    console.log("a",a)
+  fetchOptions: () => {
     const token = getToken();
-    return token ? { headers: { Authorization: `Bearer ${token}` } } : {};
+    return  window.location.pathname === '/login' ?  {} : { headers: { Authorization: `Bearer ${token}` } }  ;
   },
 });
 
