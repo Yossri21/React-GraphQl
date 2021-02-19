@@ -1,16 +1,16 @@
 import { useMutation } from "urql";
-import get from 'lodash/get'
+import get from "lodash/get";
 import { useHistory } from "react-router-dom";
 import { LOGIN } from "graphql/mutations";
-import { setToken } from "utils/tokens";
+import { setToken } from "utils/token";
 
-const useLogin = ({identifier, password}) => {
+const useLogin = ({ identifier, password }) => {
   const [_, login] = useMutation(LOGIN);
-  
+
   const history = useHistory();
 
-  const onSubmit = async () => {
-     
+  const handleSubmit = async (event) => {
+    event.preventDefault();
     const { data } = await login({
       input: {
         identifier,
@@ -18,19 +18,16 @@ const useLogin = ({identifier, password}) => {
       },
     });
 
-   
-
     if (data) {
-      const token = get(data,'login.jwt','')
-      
-      setToken(token)
-     // history.push("/app/dashboard");
+      const token = get(data, "login.jwt", "");
+
+      setToken(token);
       history.push("/");
     }
   };
 
   return {
-    onSubmit,
+    handleSubmit,
   };
 };
 

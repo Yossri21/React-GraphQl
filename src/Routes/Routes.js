@@ -1,20 +1,14 @@
 import React from 'react';
 import { Provider } from 'urql';
-import { BrowserRouter as Router, Switch } from 'react-router-dom';
-import isEmpty from 'lodash/isEmpty';
-import Route from 'components/Route';
+import { BrowserRouter as Router, Redirect, Switch , Route} from 'react-router-dom';
 import LoginPage from 'pages/Login';
-import AppRoutes from './AppRoutes';
 import history from 'utils/history';
 import client from 'graphql/client';
-import {validToken} from 'utils/tokens'
+import Home from 'pages/Home';
 
 const Routes = () => {
 
-console.log("Routes")
-  
-const user =   validToken() ?  {isAuthenticated : true} : {}  
- 
+console.log("Routes") 
   return (
     <Provider value={client}>
       <Router history={history}>
@@ -22,16 +16,14 @@ const user =   validToken() ?  {isAuthenticated : true} : {}
         <Route
             path="/login"
             component={LoginPage}
-        //    isAuthenticated={isEmpty(user)}
-            redirectTo="/"
-        
+            exact
           />
       
           <Route
             path="/"
-            component={AppRoutes}
-        //    isAuthenticated={!isEmpty(user)}
-            redirectTo="/login"
+            component={Home}
+           
+             exact
           />
         </Switch>
       </Router>
@@ -39,7 +31,4 @@ const user =   validToken() ?  {isAuthenticated : true} : {}
   );
 };
 export default Routes;
-
-const Open = ()=>{
-  return <p>Open</p>
-}
+ 

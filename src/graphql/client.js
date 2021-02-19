@@ -1,5 +1,5 @@
 import { createClient} from 'urql';
-import { getToken } from 'utils/tokens';
+import { getToken } from 'utils/token';
 
 const client = createClient({
   url: 'https://cms.trial-task.k8s.ext.fcse.io/graphql',

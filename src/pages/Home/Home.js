@@ -1,21 +1,16 @@
 import React from "react";
 import { useQuery } from "urql";
 import { UserData} from "graphql/queries";
-import { decodeToken ,  cleanToken } from "utils/tokens";
+import { decodeToken ,  cleanToken } from "utils/token";
 import Input from "components/Input/Input";
 import Button from "components/Button/Button";
-import { useHistory } from "react-router-dom";
-import styled from "styled-components";
+import { Redirect, useHistory } from "react-router-dom";
+ 
+import {validToken} from "utils/token"
+import Form from "components/Form/Form";
+import Loading from "components/loading/Loading";
 
-const Div = styled.div`
-  margin: 0 auto;
-  width: 100%;
-  max-width: 414px;
-  padding: 1.3rem;
-  display: flex;
-  flex-direction: column;
-  position: relative;
-`;
+
 export default function Home() {
   console.log("Home")
   let id = decodeToken().id;
@@ -30,34 +25,40 @@ export default function Home() {
     },
   });
 
-  if (fetching) {
-    return `Loading `;
-  } else if (error) {
-    return `Oh no! Error: ${error}`;
-  }
-
+ 
   const logout = ()=>{
     cleanToken()
     history.push("/login");
   }
 
+  if(!validToken()){
+    return <Redirect to= "/login" />
+  }
+ 
   return (
-    <Div>
-      
+    <Form>
+
       <Input
-        defaultValue={data.user.firstName}
+        defaultValue={data?.user?.firstName}
         name="firstName"
         type="text"
         disabled
       />
       <Input
-        defaultValue={data.user.lastName}
+        defaultValue={data?.user?.lastName}
         type="text"
         name="lastName"
         disabled
       />
 
+{ error && <p> Something Went Wrong </p>}
+
+ { fetching && <Loading />}
+
+
       <Button onClick={logout}> Logout </Button>
-    </Div>
+    </Form>
+
+
   );
 }
