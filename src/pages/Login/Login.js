@@ -1,4 +1,3 @@
-
 import Input from "components/Input/Input";
 import React, { useState, useCallback } from "react";
 import useLogin from "./useLogin";
@@ -16,7 +15,12 @@ export default function Login() {
   const [load, setLoad] = useState(false);
   const [error, setError] = useState("");
 
-  const { handleSubmit } = useLogin({ identifier, password , setLoad , setError });
+  const { handleSubmit } = useLogin({
+    identifier,
+    password,
+    setLoad,
+    setError,
+  });
 
   const onChange = useCallback((event) => {
     event.target.name === "password"
@@ -26,12 +30,10 @@ export default function Login() {
 
   if (validToken()) {
     return <Redirect to="/" />;
-  } 
+  }
   return (
-  
     <Form onSubmit={handleSubmit}>
-         
-     { load && <Loading />}
+      {load && <Loading />}
       <Input
         defaultValue={identifier}
         name="identifier"
@@ -48,9 +50,8 @@ export default function Login() {
         required
         placeholder="type password"
       />
-{ error && <Label> {error} </Label>}
+      {error && <Label> {error} </Label>}
       <Button type="submit"> Login </Button>
-     
     </Form>
   );
 }

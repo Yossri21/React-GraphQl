@@ -4,15 +4,15 @@ import { useHistory } from "react-router-dom";
 import { LOGIN } from "graphql/mutations";
 import { setToken } from "utils/token";
 
-const useLogin = ({ identifier, password , setLoad , setError}) => {
+const useLogin = ({ identifier, password, setLoad, setError }) => {
   const [_, login] = useMutation(LOGIN);
 
   const history = useHistory();
 
   const handleSubmit = async (event) => {
-    setLoad(true)
+    setLoad(true);
     event.preventDefault();
-    const { data} = await login({
+    const { data, error } = await login({
       input: {
         identifier,
         password,
@@ -24,8 +24,17 @@ const useLogin = ({ identifier, password , setLoad , setError}) => {
       setToken(token);
       history.push("/");
     } else {
-      setLoad(false)
-      setError("Identifier or password invalid.")
+      setLoad(false);
+
+      try {
+        setError(
+          error["graphQLErrors"][0]["extensions"]["exception"]["data"][
+            "data"
+          ][0]["messages"][0]["message"]
+        );
+      } catch (e) {
+        setError("Identifier or password invalid.");
+      }
     }
   };
 

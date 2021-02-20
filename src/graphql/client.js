@@ -1,11 +1,13 @@
-import { createClient} from 'urql';
-import { getToken } from 'utils/token';
+import { createClient } from "urql";
+import { getToken } from "utils/token";
 
 const client = createClient({
-  url: 'https://cms.trial-task.k8s.ext.fcse.io/graphql',
+  url: "https://cms.trial-task.k8s.ext.fcse.io/graphql",
   fetchOptions: () => {
     const token = getToken();
-    return  window.location.pathname === '/login' ?  {} : { headers: { Authorization: `Bearer ${token}` } }  ;
+    return window.location.pathname === "/login"
+      ? {}
+      : { headers: { Authorization: `Bearer ${token}` } };
   },
 });
 

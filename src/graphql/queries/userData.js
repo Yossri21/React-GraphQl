@@ -1,4 +1,3 @@
-
 const UserData = `
 query user ($id:ID!) {
     user(id: $id){
@@ -9,6 +8,5 @@ query user ($id:ID!) {
     }
   }
 `;
-
 
 export default UserData;
