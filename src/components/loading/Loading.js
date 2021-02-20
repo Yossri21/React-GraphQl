@@ -5,8 +5,8 @@ import styled from "styled-components";
 const Loading = styled.div`
  
     animation: spin 2s linear infinite;
-    border: 3px solid #020202;
-    border-top: 3px solid #f8c91c;
+    border: 3px solid var(--light);
+    border-top: 3px solid var(--dark);
     border-radius: 50%;
     display: inline-block;
     height: 20px;

@@ -12,9 +12,9 @@ import Loading from "components/loading/Loading";
 
 
 export default function Home() {
-  console.log("Home")
+ 
   let id = decodeToken().id;
-  console.log("Home 2")
+ 
   const history = useHistory();
  
 
@@ -56,7 +56,7 @@ export default function Home() {
  { fetching && <Loading />}
 
 
-      <Button onClick={logout}> Logout </Button>
+      <Button backgroundColor={"--cyan"} onClick={logout}> Logout </Button>
     </Form>
 
 

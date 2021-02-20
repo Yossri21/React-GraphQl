@@ -1,14 +1,14 @@
 import React from 'react';
 import { Provider } from 'urql';
-import { BrowserRouter as Router, Redirect, Switch , Route} from 'react-router-dom';
+import { BrowserRouter as Router, Switch , Route} from 'react-router-dom';
 import LoginPage from 'pages/Login';
 import history from 'utils/history';
 import client from 'graphql/client';
 import Home from 'pages/Home';
+import NotFound from 'pages/NotFound/NotFound';
 
 const Routes = () => {
 
-console.log("Routes") 
   return (
     <Provider value={client}>
       <Router history={history}>
@@ -22,13 +22,15 @@ console.log("Routes")
           <Route
             path="/"
             component={Home}
-           
              exact
           />
+          <Route component={NotFound} />
         </Switch>
       </Router>
       </Provider>
   );
 };
+
+
 export default Routes;
  

@@ -1,22 +1,22 @@
 
-import Button from "components/Button/Button";
 import Input from "components/Input/Input";
 import React, { useState, useCallback } from "react";
 import useLogin from "./useLogin";
-import {validToken} from "utils/token"
- 
+import { validToken } from "utils/token";
+
 import { Redirect } from "react-router-dom";
 import Form from "components/Form/Form";
-
-
-
+import Loading from "components/loading/Loading";
+import Label from "components/Label/Label";
+import Button from "components/Button/Button";
 
 export default function Login() {
-  console.log("Login")
   const [identifier, setIdentifier] = useState("");
   const [password, setPassword] = useState("");
+  const [load, setLoad] = useState(false);
+  const [error, setError] = useState("");
 
-  const { handleSubmit } = useLogin({ identifier, password });
+  const { handleSubmit } = useLogin({ identifier, password , setLoad , setError });
 
   const onChange = useCallback((event) => {
     event.target.name === "password"
@@ -24,14 +24,14 @@ export default function Login() {
       : setIdentifier(event.target.value);
   }, []);
 
-
-
-  if(validToken()){
-    return <Redirect to= "/" />
-  }
+  if (validToken()) {
+    return <Redirect to="/" />;
+  } 
   return (
-   
+  
     <Form onSubmit={handleSubmit}>
+         
+     { load && <Loading />}
       <Input
         defaultValue={identifier}
         name="identifier"
@@ -39,18 +39,18 @@ export default function Login() {
         placeholder="type identifier"
         type="email"
         required
-
       />
-      <Input   defaultValue={password}
+      <Input
+        defaultValue={password}
         type="password"
         name="password"
         onChange={onChange}
         required
-        placeholder="type password" /> 
-
-<Button type="submit" > Login </Button>
-</Form>
- 
-   
+        placeholder="type password"
+      />
+{ error && <Label> {error} </Label>}
+      <Button type="submit"> Login </Button>
+     
+    </Form>
   );
 }

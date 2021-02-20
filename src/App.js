@@ -1,6 +1,6 @@
 import React from 'react';
 import Routes from './Routes' 
-
+import GlobalStyle from 'styles/global';
 import styled from 'styled-components';
 
 
@@ -15,10 +15,12 @@ width: 100%;
  
 const App = () => {
   return (
+    <>
+    <GlobalStyle />
     <Wrapper>
      <Routes />    
      </Wrapper>
-    
+    </>
   );
 }
 
